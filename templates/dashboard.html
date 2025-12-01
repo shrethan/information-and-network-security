@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Welcome, {{ current_user.username }}! 👋</h2>
+    
+    <div class="dashboard-card">
+        <h3>Account Information</h3>
+        <p><strong>Email:</strong> {{ current_user.email }}</p>
+        <p><strong>Username:</strong> {{ current_user.username }}</p>
+        <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+        {% if current_user.last_login %}
+            <p><strong>Last login:</strong> {{ current_user.last_login.strftime('%B %d, %Y at %I:%M %p') }}</p>
+        {% endif %}
+    </div>
+    
+    <div class="dashboard-card">
+        <h3>Security Settings</h3>
+        {% if current_user.two_factor_enabled %}
+            <div class="security-status enabled">
+                <span>🔒 Two-Factor Authentication: <strong>Enabled</strong></span>
+            </div>
+            <a href="{{ url_for('disable_2fa') }}" class="btn btn-danger">Disable 2FA</a>
+        {% else %}
+            <div class="security-status disabled">
+                <span>🔓 Two-Factor Authentication: <strong>Disabled</strong></span>
+            </div>
+            <p>Protect your account with an extra layer of security.</p>
+            <a href="{{ url_for('setup_2fa') }}" class="btn btn-primary">Enable 2FA</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

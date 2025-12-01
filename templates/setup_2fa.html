@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Setup 2FA{% endblock %}
+
+{% block content %}
+<div class="setup-2fa">
+    <h2>Setup Two-Factor Authentication</h2>
+    
+    <div class="instructions">
+        <h3>Step 1: Install an authenticator app</h3>
+        <p>Download and install an authenticator app like:</p>
+        <ul>
+            <li>Google Authenticator</li>
+            <li>Microsoft Authenticator</li>
+            <li>Authy</li>
+        </ul>
+        
+        <h3>Step 2: Scan the QR code</h3>
+        <div class="qr-code">
+            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+        </div>
+        
+        <p><strong>Or enter this code manually:</strong></p>
+        <div class="secret-code">{{ secret }}</div>
+        
+        <h3>Step 3: Verify the setup</h3>
+        <p>Enter the 6-digit code from your authenticator app:</p>
+        
+        <form method="POST" action="{{ url_for('confirm_2fa') }}">
+            <div class="form-group">
+                <input type="text" name="token" class="form-control" 
+                       placeholder="000000" maxlength="6" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enable 2FA</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Backup Codes{% endblock %}
+
+{% block content %}
+<div class="backup-codes">
+    <h2>✅ 2FA Enabled Successfully!</h2>
+    
+    <div class="alert alert-warning">
+        <strong>⚠️ Important:</strong> Save these backup codes in a safe place. 
+        Each code can only be used once.
+    </div>
+    
+    <div class="codes-container">
+        <h3>Your Backup Codes:</h3>
+        <div class="codes-list">
+            {% for code in codes %}
+                <div class="code-item">{{ code }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="actions">
+        <button onclick="window.print()" class="btn btn-secondary">Print Codes</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+    </div>
+</div>
+{% endblock %}
